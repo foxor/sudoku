@@ -3,11 +3,11 @@ import random
 
 class LatinSquare(object):
   def __init__(self, size):
-    self.done = False
-    while not self.done:
+    done = False
+    while not done:
       self.size = size
       self.setup_data()
-      self.done = self.fill()
+      done = self.fill()
 
   def setup_data(self):
     self.row_restrictions = [0 for x in xrange(self.size)]
@@ -76,7 +76,7 @@ class Sudoku(LatinSquare):
     super(Sudoku, self).fill_spot(row, col, val)
 
   def format(self):
-    return ("\n" + '-' * 3 * 11 + "\n").join(['\n'.join(['  | '.join([' '.join(['%2s' % x for x in self.data[9*z+y:9*z+y+3]]) for y in range(0, 8, 3)]) for z in range(a,a+3)]) for a in range(0, 8, 3)])
+    return ("\n" + '-' * 3 * 11 + "\n").join(['\n'.join(['  | '.join([' '.join(['%2s' % x for x in self.data[9*z+y:9*z+y+3]]) for y in range(0, 8, 3)]) for z in range(a,a+3)]) for a in range(0, 8, 3)]) + "\n\n"
 
 if __name__ == '__main__':
   print Sudoku().format()
