@@ -76,13 +76,7 @@ class Sudoku(LatinSquare):
     super(Sudoku, self).fill_spot(row, col, val)
 
   def format(self):
-    return ("\n" + '-' * 3 * 11 + "\n").join(['\n'.join(['  | '.join([' '.join(['%2d' % x for x in self.data[9*z+y:9*z+y+3]]) for y in range(0, 8, 3)]) for z in range(a,a+3)]) for a in range(0, 8, 3)])
+    return ("\n" + '-' * 3 * 11 + "\n").join(['\n'.join(['  | '.join([' '.join(['%2s' % x for x in self.data[9*z+y:9*z+y+3]]) for y in range(0, 8, 3)]) for z in range(a,a+3)]) for a in range(0, 8, 3)])
 
 if __name__ == '__main__':
-  import time
-  sudokus = 1000
-  begin = time.time()
-  for x in range(sudokus):
-    Sudoku()
-  end = time.time()
-  print "Made %d sudokus in %d seconds" % (sudokus, end - begin)
+  print Sudoku().format()
