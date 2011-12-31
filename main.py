@@ -5,11 +5,14 @@ class LatinSquare(object):
   def __init__(self, size):
     self.done = False
     while not self.done:
-      self.row_restrictions = [0 for x in xrange(size)]
-      self.col_restrictions = [0 for x in xrange(size)]
-      self.data = [0 for x in range(size * size)]
       self.size = size
+      self.setup_data()
       self.done = self.fill()
+
+  def setup_data(self):
+    self.row_restrictions = [0 for x in xrange(self.size)]
+    self.col_restrictions = [0 for x in xrange(self.size)]
+    self.data = [0 for x in range(self.size * self.size)]
 
   def format(self):
     return "\n".join([" ".join(["%2d" % x for x in self.data[x*self.size:(x+1)*self.size]]) for x in range(self.size)])
@@ -55,8 +58,11 @@ class LatinSquare(object):
 
 class Sudoku(LatinSquare):
   def __init__(self):
-    self.box_restrictions = [0 for x in range(9)]
     super(Sudoku, self).__init__(9)
+
+  def setup_data(self):
+    self.box_restrictions = [0 for x in range(9)]
+    super(Sudoku, self).setup_data()
 
   def get_restrictions(self, row, col):
     return self.box_restrictions[col / 3 + 3 * (row / 3)] | super(Sudoku, self).get_restrictions(row, col)
