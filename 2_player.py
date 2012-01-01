@@ -58,6 +58,16 @@ class Multiplayer_Sudoku(Sudoku):
         self.cur_player = (self.cur_player + 1) % len(self.players)
       else:
         raw_input("That square is already full. <press enter to continue")
+    print "\n" * 10
+    self.players.sort(key=lambda x: self.mistakes[x])
+    if len(self.players) == 1:
+      print "You Win!"
+    elif self.mistakes[self.players[0]] == self.mistakes[self.players[1]]:
+      print "Tie Game!"
+    else:
+      print "%s Wins!" % self.players[0]
+    print "Final score (mistakes):"
+    print "\n".join("%s: %d" % (x, self.mistakes[x]) for x in self.players)
 
 if __name__ == '__main__':
   names = []
