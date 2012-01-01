@@ -1,13 +1,18 @@
 #!/usr/bin/env python
+
+import random
+
 from main import Sudoku
 
 class Multiplayer_Sudoku(Sudoku):
-  def __init__(self, players):
+  def __init__(self, players, revealed=0):
     super(Multiplayer_Sudoku, self).__init__()
     self.players = players
     self.mistakes = dict((x,0) for x in players)
     self.cur_player = 0
     self.known_data = list(False for x in range(len(self.data)))
+    for reveal in sorted(range(len(self.data)), key=lambda x: random.random())[:revealed]:
+      self.known_data[reveal] = True
 
   def format(self):
     self.data_bak = self.data
@@ -63,4 +68,4 @@ if __name__ == '__main__':
         names = ["anonymous"]
       break
     names.append(name)
-  Multiplayer_Sudoku(names).interactive()
+  Multiplayer_Sudoku(names, 10).interactive()
